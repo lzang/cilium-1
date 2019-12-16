@@ -134,6 +134,8 @@ func init() {
 	flags.Int64Var(&eniParallelWorkers, "eni-parallel-workers", defaults.ENIParallelWorkers, "Maximum number of parallel workers used by ENI allocator")
 	flags.String(option.K8sNamespaceName, "", "Name of the Kubernetes namespace in which Cilium Operator is deployed in")
 	option.BindEnv(option.K8sNamespaceName)
+	flags.Bool(option.EnableK8sEndpointSliceAutoDetection, defaults.EnableK8sEndpointSliceAutoDetection, fmt.Sprintf("Enables k8s EndpointSlice feature into Cilium-Operator if the k8s cluster supports it"))
+	option.BindEnv(option.EnableK8sEndpointSliceAutoDetection)
 
 	flags.IntVar(&unmanagedKubeDnsWatcherInterval, "unmanaged-pod-watcher-interval", 15, "Interval to check for unmanaged kube-dns pods (0 to disable)")
 
