@@ -91,17 +91,15 @@ var _ = Describe("K8sKubeProxyFreeMatrix tests", func() {
 		externalIPsDir := filepath.Join(kubectl.BasePath(), "externalIPs")
 
 		appsDir := filepath.Join(externalIPsDir, "apps")
-		kubectl.Apply(helpers.ApplyOptions{
-			FilePath: appsDir,
-		})
+		kubectl.ApplyDefault(appsDir)
 
 		err := kubectl.WaitforPods(namespaceTest, "", helpers.HelperTimeout)
 		Expect(err).To(BeNil())
 
-		podNode1 = getPodName("-l id=app1")
-		podNode2 = getPodName("-l id=app3")
-		hostPodNode1 = getPodNodeName(helpers.K8s1VMName(), "-l id=host-client")
-		hostPodNode2 = getPodNodeName(helpers.K8s2VMName(), "-l id=host-client")
+		podNode1 = getPodName("id=app1")
+		podNode2 = getPodName("id=app3")
+		hostPodNode1 = getPodNodeName(helpers.K8s1VMName(), "id=host-client")
+		hostPodNode2 = getPodNodeName(helpers.K8s2VMName(), "id=host-client")
 
 		publicIPGrep := fmt.Sprintf(`ip -4 address show dev %s | grep inet | awk '{ print $2 }' | sed 's+/.*++'`, external_ips.PublicInterfaceName)
 		privateIPGrep := fmt.Sprintf(`ip -4 address show dev %s | grep inet | awk '{ print $2 }' | sed 's+/.*++'`, external_ips.PrivateInterfaceName)
