@@ -16,7 +16,7 @@ require (
 	github.com/census-instrumentation/opencensus-proto v0.2.1 // indirect
 	github.com/cilium/arping v1.0.1-0.20190728065459-c5eaf8d7a710
 	github.com/cilium/ebpf v0.0.0-20191113100448-d9fb101ca1fb
-	github.com/cilium/hubble v0.0.0-20200120230055-b51938e5f865
+	github.com/cilium/hubble v0.0.0-20200121010834-3879ee36f29d
 	github.com/cilium/proxy v0.0.0-20191113190709-4c7b379792e6
 	github.com/containernetworking/cni v0.7.1
 	github.com/containernetworking/plugins v0.8.2
@@ -32,6 +32,7 @@ require (
 	github.com/go-openapi/strfmt v0.19.3
 	github.com/go-openapi/swag v0.19.5
 	github.com/go-openapi/validate v0.19.5
+	github.com/gogo/protobuf v1.2.2-0.20190723190241-65acae22fc9d
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/go-cmp v0.3.1
@@ -168,7 +169,7 @@ replace (
 	github.com/cheekybits/genny => github.com/cheekybits/genny v0.0.0-20170328200008-9127e812e1e9
 	github.com/cilium/arping => github.com/cilium/arping v1.0.1-0.20190728065459-c5eaf8d7a710
 	github.com/cilium/ebpf => github.com/cilium/ebpf v0.0.0-20191113100448-d9fb101ca1fb
-	github.com/cilium/hubble => github.com/cilium/hubble v0.0.0-20200120230055-b51938e5f865
+	github.com/cilium/hubble => github.com/cilium/hubble v0.0.0-20200121010834-3879ee36f29d
 	github.com/cilium/proxy => github.com/cilium/proxy v0.0.0-20191113190709-4c7b379792e6
 	github.com/circonus-labs/circonus-gometrics => github.com/circonus-labs/circonus-gometrics v2.3.1+incompatible
 	github.com/circonus-labs/circonusllhist => github.com/circonus-labs/circonusllhist v0.1.3

@@ -51,7 +51,7 @@ github.com/cilium/ebpf/asm
 github.com/cilium/ebpf/internal
 github.com/cilium/ebpf/internal/unix
 github.com/cilium/ebpf/perf
-# github.com/cilium/hubble v0.0.0-20200120230055-b51938e5f865 => github.com/cilium/hubble v0.0.0-20200120230055-b51938e5f865
+# github.com/cilium/hubble v0.0.0-20200121010834-3879ee36f29d => github.com/cilium/hubble v0.0.0-20200121010834-3879ee36f29d
 github.com/cilium/hubble/api/v1/flow
 github.com/cilium/hubble/api/v1/observer
 github.com/cilium/hubble/cmd/serve

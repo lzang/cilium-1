@@ -26,6 +26,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cilium/cilium/pkg/monitor/agent"
+
 	hubbleServe "github.com/cilium/hubble/cmd/serve"
 	v1 "github.com/cilium/hubble/pkg/api/v1"
 	ipcache2 "github.com/cilium/hubble/pkg/ipcache"
@@ -1477,6 +1479,7 @@ func (d *Daemon) runHubble() {
 		payloadParser,
 		131071,
 	)
+	d.monitorAgent.GetMonitor().RegisterNewListener(context.TODO(), agent.NewHubbleListener(s))
 	hubbleServe.Serve(logger, []string{"0.0.0.0:50051"}, s)
 }
 
