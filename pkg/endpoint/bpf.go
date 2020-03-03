@@ -1286,6 +1286,19 @@ func (e *Endpoint) RequireEndpointRoute() bool {
 	return e.DatapathConfiguration.InstallEndpointRoute
 }
 
+func (e *Endpoint) GetPolicyVerdictLogFilter() uint {
+	// The default value must be non-zero for EBPF to compile this in
+	var filter uint = 0xf0000000
+	if e.desiredPolicy.IngressPolicyEnabled {
+		filter = (filter | 0x1)
+	}
+	if e.desiredPolicy.EgressPolicyEnabled {
+		filter = (filter | 0x2)
+	}
+	e.getLogger().Infof("Set policy verdict filter to be %x", filter)
+	return filter
+}
+
 type linkCheckerFunc func(string) error
 
 // ValidateConnectorPlumbing checks whether the endpoint is correctly plumbed

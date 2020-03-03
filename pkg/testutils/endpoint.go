@@ -55,6 +55,7 @@ func (e *TestEndpoint) RequireARPPassthrough() bool             { return false }
 func (e *TestEndpoint) RequireEgressProg() bool                 { return false }
 func (e *TestEndpoint) RequireRouting() bool                    { return false }
 func (e *TestEndpoint) RequireEndpointRoute() bool              { return false }
+func (e *TestEndpoint) GetPolicyVerdictLogFilter() uint         { return 0x80000000 }
 func (e *TestEndpoint) GetCIDRPrefixLengths() ([]int, []int)    { return nil, nil }
 func (e *TestEndpoint) GetID() uint64                           { return e.Id }
 func (e *TestEndpoint) StringID() string                        { return "42" }

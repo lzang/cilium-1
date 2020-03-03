@@ -41,13 +41,22 @@ struct policy_verdict_notify {
 		match_type:3,
 		pad0:2;
 	__u32	pad1; // align with 64 bits
+	__u32	pad2;
+	__u32	pad3;
 };
+
+static inline bool policy_verdict_filter_allow(__u8 dir, __u32 filter)
+{
+	// Doesn't work somehow
+	return ((filter & (1 << (dir-1))) > 0);
+}
 
 static __always_inline void
 send_policy_verdict_notify(struct __ctx_buff *ctx, __u32 remote_label, __u16 dst_port,
 			   __u8 proto, __u8 dir, __u8 is_ipv6, int verdict,
-			   __u8 match_type)
+			   __u8 match_type, __u32 filter)
 {
+
 	__u64 ctx_len = (__u64)ctx->len, cap_len = min((__u64)TRACE_PAYLOAD_LEN, (__u64)ctx_len);
 	__u32 hash = get_hash_recalc(ctx);
 	struct policy_verdict_notify msg = {
@@ -64,8 +73,10 @@ send_policy_verdict_notify(struct __ctx_buff *ctx, __u32 remote_label, __u16 dst
 		.dir = dir,
 		.ipv6 = is_ipv6,
 		.match_type = match_type,
-		.pad0 = 0,
-		.pad1 = 0,
+		.pad0 = policy_verdict_filter_allow(dir, filter),
+		.pad1 = filter,
+		.pad2 = (filter & dir), // doesn't work somehow
+		.pad3 = (filter & (0xf000 + dir)), // work
 	};
 
 	ctx_event_output(ctx, &EVENTS_MAP,
@@ -76,7 +87,7 @@ send_policy_verdict_notify(struct __ctx_buff *ctx, __u32 remote_label, __u16 dst
 static __always_inline void
 send_policy_verdict_notify(struct __ctx_buff *ctx, __u32 remote_label, __u16 dst_port,
 			   __u8 proto, __u8 dir, __u8 is_ipv6, int verdict,
-			   __u8 match_type)
+			   __u8 match_type, __u32 filter)
 {
 }
 #endif /* POLICY_VERDICT_NOTIFY */

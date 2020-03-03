@@ -74,6 +74,8 @@ type EndpointConfiguration interface {
 	// per endpoint route installed in the host's routing table to point to
 	// the endpoint's interface
 	RequireEndpointRoute() bool
+
+	GetPolicyVerdictLogFilter() uint
 }
 
 // ConfigWriter is anything which writes the configuration for various datapath

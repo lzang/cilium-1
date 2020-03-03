@@ -20,12 +20,19 @@ static __u32 __now = 0;
 #include "lib/conntrack_test.h"
 #include "lib/ipv6_test.h"
 
+#include "lib/policy_log_test.h"
+
 int main(int argc, char *argv[])
 {
+
 	test_lpm_lookup();
 	test_ipv6_addr_clear_suffix();
 	test___ct_update_timeout();
 	test___ct_lookup();
+
+        assert(policy_verdict_filter_allow(POLICY_INGRESS, 0x80000001) == true);
+        assert(policy_verdict_filter_allow(POLICY_INGRESS, 0x80000000) == false);
+        assert(policy_verdict_filter_allow(POLICY_EGRESS, 0x80000002) == true);
 
 	return 0;
 }

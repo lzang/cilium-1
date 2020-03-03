@@ -20,7 +20,7 @@ import (
 
 const (
 	// PolicyVerdictNotifyLen is the amount of packet data provided in a Policy notification
-	PolicyVerdictNotifyLen = 32
+	PolicyVerdictNotifyLen = (32 + 8)
 
 	// The values below are for parsing PolicyVerdictNotify. They need to be consistent
 	// with what are defined in data plane.
@@ -77,7 +77,9 @@ type PolicyVerdictNotify struct {
 	DstPort     uint16
 	Proto       uint8
 	Flags       uint8
+	Pad1        uint32
 	Pad2        uint32
+	Pad3        uint32
 	// data
 }
 
@@ -122,7 +124,7 @@ func getPolicyMatchTypeString(flag uint8) string {
 
 // DumpInfo prints a summary of the policy notify messages.
 func (n *PolicyVerdictNotify) DumpInfo(data []byte) {
-	fmt.Printf("Policy verdict log: flow %#x local EP ID %d, remote ID %d, dst port %d, proto %d, ingress %v, action %s, match %s, %s\n",
+	fmt.Printf("Policy verdict log: flow %#x local EP ID %d, remote ID %d, dst port %d, proto %d, ingress %v, action %s, match %s, %s. pad0 %x filter %x, pad2 %x pad3 %x\n",
 		n.Hash, n.Source, n.RemoteLabel, n.DstPort, n.Proto, n.IsTrafficIngress(), GetPolicyActionString(n.Verdict),
-		getPolicyMatchTypeString(n.Flags), GetConnectionSummary(data[PolicyVerdictNotifyLen:]))
+		getPolicyMatchTypeString(n.Flags), GetConnectionSummary(data[PolicyVerdictNotifyLen:]), n.Flags>>6, n.Pad1, n.Pad2, n.Pad3)
 }
